@@ -15,7 +15,7 @@
     $(document).ready(function(){
         $.ajax({
           type: "POST",
-          url: "?page=setStatAjax",//сюда комент к банеру можно приделать
+          url: "?page=setStat",//сюда комент к банеру можно приделать
           data: "comment=test_comment",
           success: function(respons){ //просто для тестирования
             alert( "ответ сервера: " + respons );

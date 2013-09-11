@@ -45,25 +45,31 @@ abstract class model_baseModel {
     }
 
     public function save(){
-        $this->fields["created_at"] = date("Y-m-d h:m:s");
-        $fields = implode(",", array_keys($this->fields));
-        $values = implode(",", array_values($this->fields));
-        $pars = '';
-        $first = true;
-        $sym = "";
-        foreach($this->fields as $i=>$field){
+        try{
+            $this->fields["created_at"] = date("Y-m-d h:m:s");
+            unset($this->fields['id']);
+            $fields = implode(",", array_keys($this->fields));
+            $values = implode(",", array_map(array($this->conn, 'quote'),array_values($this->fields) ));
+            $pars = '';
+            $first = true;
+            $sym = "";
+            foreach($this->fields as $i=>$field){
 
-            $pars .= $sym . $i . "=" . $field;
-            if($first)
-            {
-                $first = false;
-                $sym = " ,";
+                if(!$first)
+                {
+                    $sym = " ,";
+                }
+                else $first = false;
+                $pars .= $sym . $i . "=" . $field;
             }
-        }
 
-        if($this->isNew()) $this->conn->exec("INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)");
-        else $this->conn->exec("UPDATE " . $this->tablename ." SET $pars WHERE id = " . $this->id);
-        $this->is_new = false;
+            if($this->isNew()) $count = $this->conn->exec("INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)");
+            else $count =$this->conn->exec("UPDATE " . $this->tablename ." SET $pars WHERE id = " . $this->id);
+            $this->is_new = false;
+            return "INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)";
+        } catch (Exception $e) {
+            return $e->getMessage() . " in query " . "INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)";
+        }
     }
 
     public function __set($name, $value){

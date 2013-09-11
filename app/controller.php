@@ -29,10 +29,15 @@ class app_controller extends app_baseController{
     public function setStat($request){
         try{
             $model = new model_requestTable();
-            $model->ip = $request->ip;
-            $model->url = $request->url;
-            $model->comment = $request->cpmment;
-            $model->save();
+            $vars = $request->getServerVars();
+            $model->ip = $vars["ip"];
+            $model->url = $vars["url"];
+            $model->comment="no comments";
+            if($request->comment)
+                $model->comment = $request->comment;
+            $result = $model->save();
+            echo "<br>count=" . $result;
+
         } catch(Exception $e) {
             echo $e->getMessage();
         }

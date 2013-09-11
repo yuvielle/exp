@@ -52,6 +52,7 @@ class lib_dbConnect {
             $conn = false;
               //todo add exception strategy
         }
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->conn = $conn;
     }
 
