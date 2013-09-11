@@ -75,7 +75,7 @@ class lib_request
 
     public function getServerVars(){
         $this->serverVars["ip"] = $_SERVER["REMOTE_ADDR"];
-        $this->serverVars["url"] = $_SERVER["HTTP_HOST"] . "/" . $_SERVER["REQUEST_URI"];
+        $this->serverVars["url"] = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
         return $this->serverVars;
     }
 }
