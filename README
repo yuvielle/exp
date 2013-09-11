@@ -1,1 +1,7 @@
 This file was created by IntelliJ IDEA 12.0.3 for binding GitHub repository
+
+точка входа в приложение /web/index.php
+в каталоге templates лежат шаблоны
+/view/viewer.php - примитивный шаблонизатор
+в /app - контроллеры и конфигуратор
+/lib/ - библиотеки проекта (autoload.php осуществляет автозагрузку по тем же правилам, что в zend, dbConnect - коннектор к базе данных, dispather.php примитивный маршрутизатор, request.php - класс реквеста)

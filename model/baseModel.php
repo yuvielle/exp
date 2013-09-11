@@ -63,12 +63,13 @@ abstract class model_baseModel {
                 $pars .= $sym . $i . "=" . $field;
             }
 
-            if($this->isNew()) $count = $this->conn->exec("INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)");
-            else $count =$this->conn->exec("UPDATE " . $this->tablename ." SET $pars WHERE id = " . $this->id);
+            if($this->isNew()) $sql = "INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)";
+            else $sql = "UPDATE " . $this->tablename ." SET $pars WHERE id = " . $this->id;
+            $count = $this->conn->exec($sql);
             $this->is_new = false;
             return "INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)";
         } catch (Exception $e) {
-            return $e->getMessage() . " in query " . "INSERT INTO " . $this->tablename ." ($fields) VALUES ($values)";
+            return $e->getMessage() . " in query " . $sql;
         }
     }
 
