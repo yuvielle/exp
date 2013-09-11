@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+   <title>Список из 10 URL страниц с самым большим количеством показов</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/base.css" rel="stylesheet" media="all">
+ </head>
+
+  <body>
+
+<h2>Список из 10 URL страниц с самым большим количеством показов</h2>
+
+<?php if(count($this->records) >0):?>
+<table>
+    <tr><th>url</th><th>количество показов</th></tr>
+<?php foreach($this->records as $record): ?>
+    <tr>
+        <td><?php echo $record['url'] ?></td>
+        <td><?php echo $record['count'] ?></td>
+    </tr>
+<?php endforeach ?>
+</table>
+<?php else: ?>
+<p>нет данных для отображения!</p>
+<?php endif ?>
+
+  </body>
+</html>
